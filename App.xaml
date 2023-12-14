@@ -1,0 +1,14 @@
+﻿<Application x:Class="WpfApp2.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:WpfApp2"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <SolidColorBrush x:Key="BackgroundColor">#005B03</SolidColorBrush>
+        <SolidColorBrush x:Key="GridBackgroundColor">#00863E</SolidColorBrush>
+        <SolidColorBrush x:Key="GridLineColor">#FF181E</SolidColorBrush>
+        <SolidColorBrush x:Key="TextColor">#89FF79</SolidColorBrush>
+        <SolidColorBrush x:Key="OverlayColor">#3EBE00</SolidColorBrush>
+        <FontFamily x:Key="MainFont">Assets/#Droid Sans Mono</FontFamily>
+    </Application.Resources>
+</Application>
