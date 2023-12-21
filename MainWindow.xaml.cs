@@ -114,7 +114,6 @@ private readonly int rows = 15, cols = 15;
         {
             while (!gameState.GameOver)
             {
-                await Task.Delay(100);
                 gameState.Move();
                 Draw();
             }
