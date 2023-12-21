@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using Snake;
 
 namespace WpfApp2
@@ -26,7 +27,8 @@ namespace WpfApp2
         {
             { GridValue.Empty, Images.Empty },
             { GridValue.Snake, Images.Body },
-            { GridValue.Food, Images.Food }
+            { GridValue.Food, Images.Food },
+            { GridValue.Wall, Images.Wall },
         };
 
         private readonly Dictionary<Direction, int> dirToRotation = new()
@@ -37,10 +39,12 @@ namespace WpfApp2
             { Direction.Left, 270 },
         };
 
-private readonly int rows = 15, cols = 15;
+        private readonly int rows = 15, cols = 15;
         private readonly Image[,] gridImages;
         private GameState gameState;
         private bool gameRunning;
+        private List<int> highScores = new();
+        private Random random = new Random();
 
         public MainWindow()
         {
@@ -53,6 +57,8 @@ private readonly int rows = 15, cols = 15;
         {
             Draw();
             await ShowCountDown();
+            if (GameSettings.EnableBGMusic)
+                Audio.Background.Play();
             Overlay.Visibility = Visibility.Hidden;
             await GameLoop();
             await ShowGameOver();
@@ -114,6 +120,7 @@ private readonly int rows = 15, cols = 15;
         {
             while (!gameState.GameOver)
             {
+                await Task.Delay(100);
                 gameState.Move();
                 Draw();
             }
@@ -183,7 +190,7 @@ private readonly int rows = 15, cols = 15;
                 Position pos = positions[i];
                 ImageSource source = (i == 0) ? Images.DeadHead : Images.DeadBody;
                 gridImages[pos.Row, pos.Col].Source = source;
-                await Task.Delay(50);
+                await Task.Delay(Math.Max(50-i+2,10));
             }
         }
 
@@ -198,10 +205,33 @@ private readonly int rows = 15, cols = 15;
 
         private async Task ShowGameOver()
         {
+            ShakeWindow(GameSettings.ShakeDuration);
+            Audio.Background.Stop();
+            Audio.GameOver.Play();
             await DrawDeadSnake();
-            await Task.Delay(1000);
+            await Task.Delay(800);
             Overlay.Visibility = Visibility.Visible;
             OverlayText.Text = "Press any key to start";
+        }
+
+        private async Task ShakeWindow(int duration)
+        {
+            var oLeft = this.Left;
+            var oTop = this.Top;
+            var shakeTimer = new DispatcherTimer(DispatcherPriority.Send);
+
+            shakeTimer.Tick += (sender, args) =>
+            {
+                this.Left = oLeft + random.Next(-10, 11);
+                this.Top = oTop + random.Next(-10, 11);
+            };
+
+            shakeTimer.Interval = TimeSpan.FromMilliseconds(200);
+            shakeTimer.Start();
+
+            await Task.Delay(duration);
+            shakeTimer.Stop();
+
         }
     }
 }

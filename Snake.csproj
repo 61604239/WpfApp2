@@ -12,10 +12,26 @@
     <None Remove="Assets\DeadBody.png" />
     <None Remove="Assets\DeadHead.png" />
     <None Remove="Assets\DroidSansMono.ttf" />
+    <None Remove="Assets\eatfoodsound %282%29.mp3" />
     <None Remove="Assets\Empty.png" />
     <None Remove="Assets\Food.png" />
     <None Remove="Assets\Head.png" />
     <None Remove="Assets\icon.ico" />
+    <None Remove="Assets\SMO.mp3" />
+    <None Remove="Assets\snakedeathsound.mp3" />
+    <None Remove="Assets\wall.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\eatfoodsound (2).mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SMO.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\snakedeathsound.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -27,6 +43,15 @@
     <Resource Include="Assets\Food.png" />
     <Resource Include="Assets\Head.png" />
     <Resource Include="Assets\icon.ico" />
+    <Resource Include="Assets\wall.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Audio.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
   </ItemGroup>
 
 </Project>

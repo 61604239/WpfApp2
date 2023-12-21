@@ -4,14 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WpfApp2
+namespace Snake
 {
-    public enum GridValue
+    public class Leaderboard
     {
-        Empty,
-        Snake,
-        Food,
-        Wall,
-        Outside,
+        public string Name { get; set; }
+        public int Score { get; set; }
     }
 }
